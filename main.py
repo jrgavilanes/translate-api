@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse
+
 import traductor
 
 app = FastAPI(title="Api traductor", description="Api traducir utilizando api de Google translator", version="0.1")
@@ -12,6 +14,25 @@ def startup():
 @app.on_event('shutdown')
 def shutdown():
     print("apagando app")
+
+
+@app.get("/", response_class=HTMLResponse)
+async def main():
+    return """
+        <html>
+            <head>
+                <title>Some HTML in here</title>
+            </head>
+            <body>
+                <h1>API de janrax's translator</h1>
+                <pre>
+                - Documentación:  <a href="/docs">/docs</a>
+                - Lista de idiomas: <a href="/languages_list">/languages_list</a>
+                - Traductor: <a href="/translate/?src=es&dest=en&text=Esto es un texto de prueba">/translate/?src=es&dest=en&text=Esto es un texto de prueba</a>
+                </pre>
+            </body>
+        </html>
+        """
 
 
 @app.get("/translate/")
@@ -34,6 +55,7 @@ async def translate(text: str = "", src: str = "es", dest: str = "en"):
 
     except:
         raise HTTPException(status_code=422, detail=text)
+
 
 @app.get("/languages_list")
 async def languages_list():
