@@ -17,7 +17,7 @@ git remote -v
 heroku git:remote -a nombre-app
 
 git commit -m "bla bla"
-git push heroku master
+git push heroku master ó git push heroku main
 heroku open
 heroku logs
 heroku info
