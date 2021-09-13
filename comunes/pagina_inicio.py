@@ -313,7 +313,7 @@ web_inicio = """
             methods: {
                 async traducir() {
 
-                    const rawResponse = await fetch('http://127.0.0.1:8000/translate', {
+                    const rawResponse = await fetch('translate/', {
                         method: 'POST',
                         headers: {
                             'Accept': 'application/json',
